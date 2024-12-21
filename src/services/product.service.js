@@ -1,7 +1,7 @@
 import fs from "fs"
 import { v4 as uuid } from "uuid"
 
-class productService {
+class ProductService {
     path;
     products;
 
@@ -106,13 +106,16 @@ class productService {
 
     async saveOnFile() {
         try {
-            await fs.promises.writeFile(this.path, JSON.stringify(this.products));
+            await fs.promises.writeFile(
+                this.path, 
+                JSON.stringify(this.products, null, 2)
+            );
         } catch (error) {
             console.error('Error al guardar el producto');
         }
     }
 }
 
-export const productService = new productService({
-    path: './db/products.json',
+export const productService = new ProductService({
+    path: './src/db/products.json',
 })

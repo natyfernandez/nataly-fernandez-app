@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { productService } from "../services/product.service";
+import { productService } from "../services/product.service.js";
 
 export const productRouter = Router();
 
@@ -60,7 +60,7 @@ productRouter.delete("/:id", async (req, res) => {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        res.status(204).end();
+        res.status(200).json({ product });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }

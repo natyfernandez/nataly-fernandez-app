@@ -1,6 +1,5 @@
-import { productService } from "./services/product.service";
 import express from "express";
-import { productRouter } from "./routes/product.routes";
+import { productRouter } from "./routes/product.routes.js";
 
 const app = express();
 const PORT = 8080;
