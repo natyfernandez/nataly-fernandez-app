@@ -1,1 +1,30 @@
-[]
+[
+    {
+        "id": "daa6db40-4644-4f69-8db1-4df93c81e491",
+        "title": "Camiseta de Algodón",
+        "description": "Camiseta suave de algodón 100%, disponible en varios colores.",
+        "code": "TSHIRT123",
+        "price": 19.99,
+        "status": true,
+        "stock": 50,
+        "category": "Ropa",
+        "thumbnails": [
+            "https://example.com/image1.jpg",
+            "https://example.com/image2.jpg"
+        ]
+    },
+    {
+        "id": "3r2feff-4644-4f69-8db1-4df93c81e491",
+        "title": "Pantalon de Jean",
+        "description": "Pantalon de Jean, disponible en varios colores.",
+        "code": "JEAN21",
+        "price": 50.99,
+        "status": true,
+        "stock": 30,
+        "category": "Ropa",
+        "thumbnails": [
+            "https://example.com/image1.jpg",
+            "https://example.com/image2.jpg"
+        ]
+    }
+]
