@@ -53,7 +53,8 @@ class ProductService {
             await this.saveOnFile();
             return product;
         } catch (error) {
-            console.error('Error al guardar el producto');
+            console.error("Error al guardar el producto:", error.message);
+            throw new Error("Error al guardar el producto");
         }
     }
     
@@ -81,7 +82,8 @@ class ProductService {
             await this.saveOnFile();
             return product;
         } catch (error) {
-            console.error('Error al actualizar el producto');
+            console.error("Error al actualizar el producto:", error.message);
+            throw new Error("Error al actualizar el producto");
         }
     }
     
@@ -100,7 +102,8 @@ class ProductService {
             await this.saveOnFile();
             return product;
         } catch (error) {
-            console.error('Error al eliminar el producto');
+            console.error("Error al eliminar el producto:", error.message);
+            throw new Error("Error al eliminar el producto");
         }
     }
 
@@ -111,7 +114,8 @@ class ProductService {
                 JSON.stringify(this.products, null, 2)
             );
         } catch (error) {
-            console.error('Error al guardar el producto');
+            console.error("Error al guardar el producto:", error.message);
+            throw new Error("Error al guardar el producto");
         }
     }
 }

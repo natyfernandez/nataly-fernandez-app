@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { productService } from "../services/product.service.js";
+import { io } from './../server.js';
 
 export const productRouter = Router();
 
@@ -27,6 +28,7 @@ productRouter.post("/", async (req, res) => {
         const product = await productService.create({ title, description, code, price, status, stock, category, thumbnails });
 
         res.status(201).json(product);
+        io.emit("Nuevo producto:", product)
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
