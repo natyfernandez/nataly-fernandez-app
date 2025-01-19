@@ -5,9 +5,9 @@ export const viewsRoutes = Router()
 
 viewsRoutes.get("/", async (req, res) => {
     const products = await productService.getAll();
-    res.render("home", {products});
+    res.render("home", {products, title: "Home", homeUrl: "#", productsUrl: "/realtimeproducts"});
 });
 
-viewsRoutes.get("/products", async (req, res) => {
-    res.render("realTimeProducts");
+viewsRoutes.get("/realtimeproducts", async (req, res) => {
+    res.render("realTimeProducts", {title: "Products", homeUrl: "/", productsUrl: "#"});
 });

@@ -1,30 +1,68 @@
 [
-    {
-        "id": "daa6db40-4644-4f69-8db1-4df93c81e491",
-        "title": "Camiseta de Algodón",
-        "description": "Camiseta suave de algodón 100%, disponible en varios colores.",
-        "code": "TSHIRT123",
-        "price": 19.99,
-        "status": true,
-        "stock": 50,
-        "category": "Ropa",
-        "thumbnails": [
-            "https://example.com/image1.jpg",
-            "https://example.com/image2.jpg"
-        ]
-    },
-    {
-        "id": "3r2feff-4644-4f69-8db1-4df93c81e491",
-        "title": "Pantalon de Jean",
-        "description": "Pantalon de Jean, disponible en varios colores.",
-        "code": "JEAN21",
-        "price": 50.99,
-        "status": true,
-        "stock": 30,
-        "category": "Ropa",
-        "thumbnails": [
-            "https://example.com/image1.jpg",
-            "https://example.com/image2.jpg"
-        ]
-    }
+  {
+    "id": "5e4b8d40-fc0a-4b3c-b1a4-2d81e9a4f6c3",
+    "title": "Anillo de Oro Rosa",
+    "description": "Elegante anillo de oro rosa con incrustaciones de diamantes.",
+    "code": "RING001",
+    "price": 299.99,
+    "status": true,
+    "stock": 20,
+    "category": "Anillos",
+    "thumbnail": "public/assets/images/anillo-oro-rosa.webp"
+  },
+  {
+    "id": "7a2c9f10-db8e-49c3-b5a5-4f92d81e9f5a",
+    "title": "Collar de Perlas",
+    "description": "Collar clásico de perlas cultivadas de alta calidad.",
+    "code": "NECKLACE101",
+    "price": 499.99,
+    "status": true,
+    "stock": 15,
+    "category": "Collares",
+    "thumbnail": "public/assets/images/collar-de-perlas.webp"
+  },
+  {
+    "id": "3d6a1e90-efb8-41d7-8b0d-9b72f9c3d1a4",
+    "title": "Pendientes de Plata",
+    "description": "Pendientes elegantes de plata esterlina con diseño minimalista.",
+    "code": "EARRINGS202",
+    "price": 79.99,
+    "status": true,
+    "stock": 30,
+    "category": "Aritos",
+    "thumbnail": "https://example.com/pendientes-de-plata.jpg"
+  },
+  {
+    "id": "1a3b8e50-fc8e-49c7-a2b6-7d92e9a4c8f1",
+    "title": "Pulsera de Diamantes",
+    "description": "Pulsera sofisticada con diamantes incrustados en oro blanco.",
+    "code": "BRACELET303",
+    "price": 999.99,
+    "status": true,
+    "stock": 10,
+    "category": "Pulseras",
+    "thumbnail": "https://example.com/pulsera-de-diamantes.jpg"
+  },
+  {
+    "id": "8f4b9d30-ac9f-4b2c-b3a6-2d8e9a4c5f7a",
+    "title": "Reloj de Oro",
+    "description": "Reloj de oro de 18 quilates con diseño exclusivo y maquinaria suiza.",
+    "code": "WATCH404",
+    "price": 2499.99,
+    "status": true,
+    "stock": 5,
+    "category": "Relojes",
+    "thumbnail": "https://example.com/reloj-de-oro.jpg"
+  },
+  {
+    "id": "2b6c8f20-db9e-41c5-a3b6-4f9a2e3c6d1a",
+    "title": "Broche de Cristales",
+    "description": "Broche vintage decorado con cristales Swarovski.",
+    "code": "BROOCH505",
+    "price": 149.99,
+    "status": true,
+    "stock": 25,
+    "category": "Broches",
+    "thumbnail": "https://example.com/broche-de-cristales.jpg"
+  }
 ]

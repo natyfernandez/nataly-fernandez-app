@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { productService } from "../services/product.service.js";
 import { io } from './../server.js';
+import { uploader } from './../middlewares/multer.middleware.js';
 
 export const productRouter = Router();
 
@@ -21,14 +22,21 @@ productRouter.get("/:id", async (req, res) => {
     res.status(200).json(product);
 });
 
-productRouter.post("/", async (req, res) => {
-    const { title, description, code, price, status, stock, category, thumbnails } = req.query;
-    
+productRouter.post("/", uploader.single("image"), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "Imagen requerida" });
+    }
+
+    console.log(req.file);
+
+    const { title, description, code, price, status, stock, category} = req.body;
+    const thumbnail = `/assets/img/${req.file.filename}`; 
+
     try {
-        const product = await productService.create({ title, description, code, price, status, stock, category, thumbnails });
+        const product = await productService.create({ title, description, code, price, status, stock, category, thumbnail });
 
         res.status(201).json(product);
-        io.emit("Nuevo producto:", product)
+        io.emit("nuevoProducto:", product)
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
@@ -37,10 +45,10 @@ productRouter.post("/", async (req, res) => {
 productRouter.put("/:id", async (req, res) => {
     const { id } = req.params;
 
-    const { title, description, code, price, status, stock, category, thumbnails } = req.body;
+    const { title, description, code, price, status, stock, category, thumbnail } = req.body;
 
     try {
-        const product = await productService.update({ id, title, description, code, price, status, stock, category, thumbnails });
+        const product = await productService.update({ id, title, description, code, price, status, stock, category, thumbnail });
 
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
