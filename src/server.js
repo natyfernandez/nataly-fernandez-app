@@ -1,6 +1,7 @@
 import path from "path";
 import morgan from "morgan";
 import express from "express";
+import mongoose from "mongoose";
 import handlebars from 'express-handlebars';
 import { Server } from "socket.io";
 
@@ -8,7 +9,8 @@ import { __dirname } from "./dirname.js";
 import { viewsRoutes } from "./routes/views.routes.js";
 import { productRouter } from "./routes/product.routes.js";
 import { cartRouter } from "./routes/cart.routes.js";
-import { productService } from "./services/product.service.js";
+import { productsModel } from "./models/products.model.js";
+import { error } from "console";
 
 const app = express();
 const PORT = 5050;
@@ -48,7 +50,7 @@ io.on("connection", (socket) => {
     
     const handleProducts = async () => {
         try {
-            const products = await productService.getAll();
+            const products = await productsModel.find();
             console.log("Productos obtenidos:", products);
             socket.emit("init", products);
         } catch (error) {
@@ -71,3 +73,7 @@ io.on("connection", (socket) => {
         }
     });
 })
+
+mongoose.connect("mongodb+srv://natyayelenfernandez:Naty191002.@backednaty.7sfpl.mongodb.net/")
+    .then(() => console.log("Nos conectamos a la BD correctamente"))
+    .catch(() => console.log("Tenemos un error", error) )

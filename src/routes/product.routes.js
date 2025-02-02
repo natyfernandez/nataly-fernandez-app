@@ -1,62 +1,60 @@
+import { productsModel } from "../models/products.model.js";
 import { Router } from "express";
-import { productService } from "../services/product.service.js";
 import { io } from './../server.js';
 import { uploader } from './../middlewares/multer.middleware.js';
 
 export const productRouter = Router();
 
 productRouter.get("/", async (req, res) => {
-    const products = await productService.getAll();
-
-    res.status(200).json(products);
+    try {
+        const products = await productsModel.find();
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los productos' });
+    }
 });
 
 productRouter.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const products = await productService.getById({ id });
-
-    if (!products) {
-        return res.status(404).json({ message: 'Product not found' });
+    try {
+        const products = await productsModel.find(id);
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener el producto' });
     }
-
-    res.status(200).json(product);
 });
 
 productRouter.post("/", uploader.single("image"), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "Imagen requerida" });
     }
-
-    console.log(req.file);
-
-    const { title, description, code, price, status, stock, category} = req.body;
-    const thumbnail = `/assets/img/${req.file.filename}`; 
+    
+    const { title, description, price, stock, category } = req.body;
+    const thumbnail = `./public/assets/images/${req.file.filename}`; 
 
     try {
-        const product = await productService.create({ title, description, code, price, status, stock, category, thumbnail });
-
+        const product = await productsModel.create({ title, description, price, stock, category, thumbnail });
         res.status(201).json(product);
-        io.emit("nuevoProducto:", product)
+        io.emit("nuevoProducto", product)
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: "Error al crear un producto"});
     }
 });
 
 productRouter.put("/:id", async (req, res) => {
     const { id } = req.params;
 
-    const { title, description, code, price, status, stock, category, thumbnail } = req.body;
-
     try {
-        const product = await productService.update({ id, title, description, code, price, status, stock, category, thumbnail });
+        const { title, description, price, stock, category, thumbnail } = req.body;
+        const product = await productsModel.findByIdAndUpdate(id, { title, description, price, stock, category, thumbnail });
 
         if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+            return res.status(404).json({ message:'Producto no encontrado'});
         }
 
-        res.status(200).json(product);
+        res.status(200).json({ message: `Producto actualizado: ${product}` });
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: "Error al actualizar" });
     }
 });
 
@@ -64,14 +62,14 @@ productRouter.delete("/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
-        const product = await productService.delete({ id });
+        const product = await productsModel.findByIdAndDelete(id);
 
         if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+            return res.status(404).json({ message:'Producto no encontrado'});
         }
 
-        res.status(200).json({ product });
+        res.status(200).json({ message: `Producto eliminado: ${product}` });
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: "Error al eliminar el producto" });
     }
 });

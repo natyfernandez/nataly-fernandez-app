@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { productService } from "../services/product.service.js";
+import { productsModel } from "../models/products.model.js";
 
 export const viewsRoutes = Router()
 
 viewsRoutes.get("/", async (req, res) => {
-    const products = await productService.getAll();
+    const products = await productsModel.find();
     res.render("home", {products, title: "Home", homeUrl: "#", productsUrl: "/realtimeproducts"});
 });
 

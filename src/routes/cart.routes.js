@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { cartService } from "../services/cart.service.js";
+import { cartsModel } from "../models/carts.model.js";
+import { productsModel } from "../models/products.model.js";
 
 export const cartRouter = Router();
 
-cartRouter.post("/", async (req, res) => {
+cartRouter.post("/", async (req, res) => {    
     try {
-        const newCart = await cartService.createCart();
+        const newCart = await cartsModel.create({});
         res.status(201).json(newCart);
     } catch (error) {
         res.status(500).json({ message: "Error al crear el carrito" });
@@ -16,7 +17,7 @@ cartRouter.get("/:cid", async (req, res) => {
     const { cid } = req.params;
 
     try {
-        const cart = await cartService.getById(cid);
+        const cart = await cartsModel.findOne({_id: cid});
 
         if (!cart) {
             return res.status(404).json({ message: "Carrito no encontrado" });

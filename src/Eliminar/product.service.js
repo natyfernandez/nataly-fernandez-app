@@ -28,7 +28,7 @@ class ProductService {
         return product;
     }
     
-    async create({ title, description, code, price, status, stock, category, thumbnails }){
+    async create({ title, description, code, price, status, stock, category, thumbnail }){
         const id = uuid();
 
         if (this.products.some((product) => product.id === id)) {
@@ -44,7 +44,7 @@ class ProductService {
             status,
             stock,
             category,
-            thumbnails,
+            thumbnail,
         };
 
         this.products.push(product);
@@ -58,7 +58,7 @@ class ProductService {
         }
     }
     
-    async update({ id, title, description, code, price, status, stock, category, thumbnails }){
+    async update({ id, title, description, code, price, status, stock, category, thumbnail }){
         const product = this.products.find((product) => product.id === id);
 
         if (!product) {
@@ -72,7 +72,7 @@ class ProductService {
         product.status = status ?? product.status;
         product.stock = stock ?? product.stock;
         product.category = category ?? product.category;
-        product.thumbnails = thumbnails ?? product.thumbnails;
+        product.thumbnail = thumbnail ?? product.thumbnail;
 
         const index = this.products.findIndex((product) => product.id === id);
 

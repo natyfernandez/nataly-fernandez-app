@@ -64,5 +64,13 @@
     "stock": 25,
     "category": "Broches",
     "thumbnail": "https://example.com/broche-de-cristales.jpg"
+  },
+  {
+    "id": "5bb24b32-14f1-4a71-b552-059326783dcb",
+    "title": "Anillo de Oro Rosa",
+    "description": "Anillo de compromiso, oro 18kl",
+    "price": "213",
+    "stock": "12",
+    "category": "Anillos"
   }
 ]
