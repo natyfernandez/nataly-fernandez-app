@@ -13,15 +13,17 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         const { title } = req.body;
-
+    
         if (!title) return cb("El campo title es requerido");
-
+    
+        const sanitizedTitle = title.replace(/\s+/g, '-').toLowerCase();
+    
         cb(null, 
-            `${title}.${
+            `${sanitizedTitle}.${
                 file.mimetype.split("/")[1]
             }`
         );
-    },
+    },    
 });
 
 export const uploader = multer({ storage });

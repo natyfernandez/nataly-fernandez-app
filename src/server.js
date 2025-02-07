@@ -16,7 +16,7 @@ import { productsModel } from "./models/products.model.js";
 import { error } from "console";
 
 const app = express();
-const PORT = 8080;
+const PORT = 5000;
 
 // Express configuration 
 app.use(morgan("dev"));
@@ -71,4 +71,4 @@ io.on("connection", (socket) => {
 
 mongoose.connect("mongodb+srv://backednaty.7sfpl.mongodb.net/")
     .then(() => console.log("Nos conectamos a la BD correctamente"))
-    .catch(() => console.log("Tenemos un error", error))
+    .catch(() => console.log("No pudimos conectarnos a la BD:", error))
