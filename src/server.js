@@ -2,7 +2,10 @@ import path from "path";
 import morgan from "morgan";
 import express from "express";
 import mongoose from "mongoose";
+import Handlebars from "handlebars";
+import cookieParser from 'cookie-parser';
 import handlebars from 'express-handlebars';
+import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { Server } from "socket.io";
 
 import { __dirname } from "./dirname.js";
@@ -13,30 +16,34 @@ import { productsModel } from "./models/products.model.js";
 import { error } from "console";
 
 const app = express();
-const PORT = 5050;
+const PORT = 8080;
 
 // Express configuration 
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cookieParser()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, "../public")));
 
 // Handlebars config
 app.engine(
-    "hbs", 
+    "hbs",
     handlebars.engine({
         extname: ".hbs",
         defaultLayout: "main",
+        handlebars: allowInsecurePrototypeAccess(Handlebars),
     })
 );
 app.set("view engine", "hbs");
 app.set("views", path.resolve(__dirname, "./views"));
 
 // Routes
-app.use("/", viewsRoutes)
-app.use("/products", viewsRoutes)
+app.use("/", viewsRoutes);
+app.use("/products", viewsRoutes);
 app.use("/api/products", productRouter);
-app.use("/api/carts", cartRouter);
+app.use("/carts", cartRouter);
+
+app.use(express.static('public'));
 
 // Websocket config
 const server = app.listen(PORT, () => {
@@ -60,20 +67,8 @@ io.on("connection", (socket) => {
     };
 
     handleProducts();
-
-    socket.on("addProduct", async (data) => {
-        try {
-            const newProduct = await productService.create(data);
-            console.log("Producto agregado:", newProduct);
-
-            io.emit("nuevoProducto", newProduct);
-        } catch (error) {
-            console.error("Error al agregar el producto:", error);
-            socket.emit("error", "No se pudo agregar el producto");
-        }
-    });
 })
 
-mongoose.connect("mongodb+srv://natyayelenfernandez:Naty191002.@backednaty.7sfpl.mongodb.net/")
+mongoose.connect("mongodb+srv://backednaty.7sfpl.mongodb.net/")
     .then(() => console.log("Nos conectamos a la BD correctamente"))
-    .catch(() => console.log("Tenemos un error", error) )
+    .catch(() => console.log("Tenemos un error", error))

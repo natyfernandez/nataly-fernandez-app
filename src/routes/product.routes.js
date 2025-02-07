@@ -6,11 +6,13 @@ import { uploader } from './../middlewares/multer.middleware.js';
 export const productRouter = Router();
 
 productRouter.get("/", async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+
     try {
-        const products = await productsModel.find();
-        res.status(200).json(products);
+        const products = await productsModel.paginate({}, { page: Number(page), limit: Number(limit) });
+        return res.status(200).json(products); // ✅ Solo una respuesta
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener los productos' });
+        return res.status(500).json({ message: 'Error al obtener los productos' });
     }
 });
 
@@ -30,7 +32,7 @@ productRouter.post("/", uploader.single("image"), async (req, res) => {
     }
     
     const { title, description, price, stock, category } = req.body;
-    const thumbnail = `./public/assets/images/${req.file.filename}`; 
+    const thumbnail = `./assets/images/${req.file.filename}`; 
 
     try {
         const product = await productsModel.create({ title, description, price, stock, category, thumbnail });

@@ -1,9 +1,10 @@
 import { Schema, model } from "mongoose";
 
 const cartSchema = new Schema({
-    products: { type: [
+    products: { 
+    type: [
         {
-            product: { type: Schema.Types.ObjectId, ref: "product" },
+            product: { type: Schema.Types.ObjectId, ref: "products" },
             quantity: { type: Number, min: 1 }
         }
     ], 
